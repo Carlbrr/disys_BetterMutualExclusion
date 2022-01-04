@@ -1,0 +1,30 @@
+syntax = "proto3";
+option go_package = "/Users/andreaskongstad/Documents/goLang/DistributedMutualExclusion/proto";
+package proto;
+
+
+message Node{
+    int32 id = 1;
+    string name = 2;
+}
+
+message RequestMessage{
+    Node user = 1;
+    int32 timestamp = 2;
+}
+
+message ReplyMessage{
+    Node user = 1;
+    int32 timestamp = 2;
+}
+
+message void{}
+
+
+message okResponse{}
+
+service ExclusionService{
+    rpc AccessCritical(RequestMessage) returns(ReplyMessage){}
+    rpc ReceiveRequest(RequestMessage) returns(void){}
+    rpc ReceiveReply(ReplyMessage) returns(void){}
+}
